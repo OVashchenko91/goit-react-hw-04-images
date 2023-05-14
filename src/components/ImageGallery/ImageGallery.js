@@ -3,14 +3,22 @@ import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import { Ul } from './ImageGallery.styled';
 
 export function ImageGallery ({images, modalOpen}) {
+
+    const onModalOpen = e => {
+        if(e.target.nodeName === 'IMG') {
+            modalOpen(e.target.getAttribute("data-modal"), e.target.alt);
+        };
+    };
+
     return (
-        <Ul onClick={modalOpen}>
+        <Ul onClick={onModalOpen}>
             {images.map(image =>
                 {
                     return (
                         <ImageGalleryItem key={image.id} src={image.src} alt={image.alt} srcLarge={image.srcLarge}/>
                     );
-                })}   
+                }
+            )}   
         </Ul>
     );
 };

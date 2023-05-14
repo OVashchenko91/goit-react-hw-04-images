@@ -1,7 +1,20 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import {Header, Form, Input, Label, Button} from './Searchbar.styled';
 
-export function Searchbar({search, onChange, onSubmit}) {
+export function Searchbar({handleSearchSubmit}) {
+
+    const [input, setInput] = useState("");
+
+    const onChange = e => {
+        setInput(e.currentTarget.value.toLowerCase());
+    };
+    
+    const onSubmit = e => {
+        e.preventDefault(); 
+        handleSearchSubmit(input);
+    }
+      
     return (
         <Header>
             <Form onSubmit={onSubmit}>
@@ -14,7 +27,7 @@ export function Searchbar({search, onChange, onSubmit}) {
                     autocomplete="off"
                     autoFocus
                     placeholder="Search images and photos"
-                    value={search}
+                    value={input}
                     onChange={onChange}
                 />
             </Form>
@@ -23,7 +36,5 @@ export function Searchbar({search, onChange, onSubmit}) {
 };
 
 Searchbar.propTypes = {
-    search: PropTypes.string, 
-    onChange: PropTypes.func,
-    onSubmit: PropTypes.func,
+    handleSearchSubmit: PropTypes.func,
 };
